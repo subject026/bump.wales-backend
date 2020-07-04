@@ -1,0 +1,32 @@
+Arguments: 
+  /home/louis/.nvm/versions/node/v14.3.0/bin/node /home/louis/.nvm/versions/node/v14.3.0/bin/yarn add express bcryptjs jest mongoose supertest
+
+PATH: 
+  /home/louis/.nvm/versions/node/v14.3.0/bin:/bin:/home/louis/bin:/home/louis/.local/bin:/home/louis/.deno/bin:/usr/local/bin:/opt/genymobile/genymotion/tools:/Users/myuser/Library/Android/sdk:/home/louis/.nvm/versions/node/v14.3.0/bin:/bin:/home/louis/bin:/home/louis/.local/bin:/home/louis/.deno/bin:/usr/local/bin:/opt/genymobile/genymotion/tools:/Users/myuser/Library/Android/sdk:/home/louis/.cargo/bin:/home/louis/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/louis/.yarn/bin:/home/louis/.yarn/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  14.3.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:26)
+
+npm manifest: 
+  {
+    "name": "bump.wales-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
