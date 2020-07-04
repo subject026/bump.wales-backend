@@ -1,3 +1,5 @@
+#!/usr/bin/env nodejs
+
 require("dotenv").config();
 const app = require("./app");
 
