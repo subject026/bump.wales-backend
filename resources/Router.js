@@ -15,6 +15,12 @@ const protect = (roles) => {
       });
       return;
     }
+    if (!req.user.roles) {
+      res.status(401).json({
+        errors: ["user has no roles!"],
+      });
+      return;
+    }
     roles.forEach((role) => {
       if (!req.user.roles.contains(role)) {
         res.status(401).json({
