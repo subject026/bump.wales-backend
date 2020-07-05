@@ -2,16 +2,14 @@ const Router = require("express").Router();
 
 const AuthControllers = require("../util/authControllers");
 const UserControllers = require("./User/user.controllers");
-const UserFilmMetaControllers = require(
-  "./UserFilmMeta/userFilmMeta.controllers",
-);
+const UserFilmMetaControllers = require("./UserFilmMeta/userFilmMeta.controllers");
 const badRequest = require("../util/badRequest");
 const expressCallback = require("../util/expressCallback");
 
 const protect = (roles) => {
   return (req, res, next) => {
     if (!roles) throw new Error("need to pass role(s)!!");
-    if (!req.user)
+    if (!req.user) {
       res.status(401).json({
         errors: ["not logged in"],
       });
@@ -38,7 +36,7 @@ Router.route("/")
           bump: "foo lala",
         },
       };
-    }),
+    })
   )
   .all(expressCallback(badRequest));
 
