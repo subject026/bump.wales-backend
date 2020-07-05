@@ -11,6 +11,12 @@ const expressCallback = require("../util/expressCallback");
 const protect = (roles) => {
   return (req, res, next) => {
     if (!roles) throw new Error("need to pass role(s)!!");
+    if (!req.user)
+      res.status(401).json({
+        errors: ["not logged in"],
+      });
+      return;
+    }
     roles.forEach((role) => {
       if (!req.user.roles.contains(role)) {
         res.status(401).json({
