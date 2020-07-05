@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "MODE=development nodemon index.js"
+    "dev": "MODE=development nodemon api.bump.wales.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

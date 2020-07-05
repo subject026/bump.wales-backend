@@ -29,7 +29,7 @@ Router.route("/")
       return {
         statusCode: 200,
         body: {
-          bump: "yeaaaa",
+          bump: "foo lala",
         },
       };
     }),
