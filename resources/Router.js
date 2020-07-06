@@ -1,8 +1,10 @@
 const Router = require("express").Router();
 
-const AuthControllers = require("../util/authControllers");
+const AuthControllers = require("./authControllers");
 const UserControllers = require("./User/user.controllers");
-const UserFilmMetaControllers = require("./UserFilmMeta/userFilmMeta.controllers");
+const PublisherControllers = require(
+  "./Publisher/publisher.controllers",
+);
 const badRequest = require("../util/badRequest");
 const expressCallback = require("../util/expressCallback");
 
@@ -22,7 +24,7 @@ const protect = (roles) => {
       return;
     }
     roles.forEach((role) => {
-      if (!req.user.roles.contains(role)) {
+      if (!req.user.roles.includes(role)) {
         res.status(401).json({
           errors: ["not authorised"],
         });
@@ -42,7 +44,7 @@ Router.route("/")
           bump: "foo lala",
         },
       };
-    })
+    }),
   )
   .all(expressCallback(badRequest));
 
@@ -58,8 +60,37 @@ Router.route("/logout")
   .get(expressCallback(AuthControllers.logout))
   .all(expressCallback(badRequest));
 
+Router.route("/user")
+  .get(expressCallback(async (req) => {
+    if (!req.user) {
+      return {
+        statusCode: 200,
+        body: {
+          user: false,
+        },
+      };
+    }
+    console.log(req.user);
+    return {
+      statusCode: 200,
+      body: {
+        user: {
+          email: req.user.email,
+          roles: req.user.roles,
+        },
+      },
+    };
+  }))
+  .all(expressCallback(badRequest));
+
 Router.route("/users")
-  .get(protect(["ADMIN"]), expressCallback(UserControllers.getUsers))
+  .get(protect(["ADMIN"]), expressCallback(UserControllers.find))
+  .all(expressCallback(badRequest));
+
+Router.route("/publishers")
+  .get(protect(["ADMIN"]), expressCallback(PublisherControllers.find))
+  .post(protect(["ADMIN"]), expressCallback(PublisherControllers.create))
+  .delete(protect(["ADMIN"]), expressCallback(PublisherControllers.delete))
   .all(expressCallback(badRequest));
 
 // Router.route("/publisher")

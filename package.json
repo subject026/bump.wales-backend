@@ -5,13 +5,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "MODE=development nodemon api.bump.wales.js",
-    "prod": "MODE=production node api.bump.wales.js"
+    "prod": "MODE=production node api.bump.wales.js",
+    "rss-dev": "MODE=development nodemon RSS/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "es6-promise-pool": "^2.5.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "jest": "^26.1.0",
@@ -19,6 +21,7 @@
     "mongoose": "^5.9.21",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
+    "rss-parser": "^3.8.0",
     "supertest": "^4.0.2"
   }
 }

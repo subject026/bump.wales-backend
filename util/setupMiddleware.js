@@ -26,23 +26,23 @@ function SetupMiddleware(app) {
       path.join(__dirname, "../logs/myLogFile.log"),
       {
         flags: "a",
-      }
+      },
     );
     app.use(morgan({ stream: logFile }));
   }
   if (process.env.MODE === "development") {
     app.use(morgan("dev"));
   }
-  const origin =
-    process.env.MODE === "development"
-      ? process.env.DEV_FRONTEND_URL
-      : process.env.PROD_FRONTEND_URL;
-  console.log(origin);
+  const origin = process.env.MODE === "development"
+    ? process.env.DEV_FRONTEND_URL
+    : process.env.PROD_FRONTEND_URL;
+
+  console.log("\n\n\n\n\n\n", origin, "\n\n\n\n\n");
   app.use(
     cors({
       origin,
       credentials: true,
-    })
+    }),
   );
   app.use(parseToken);
 }

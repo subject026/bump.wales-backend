@@ -28,7 +28,7 @@ module.exports = (controller) => {
         res.status(httpResponse.statusCode).json(httpResponse.body);
       })
       .catch((err) => {
-        console.log("express callback error: ");
+        console.log("express callback error: ", err);
         res.status(500).send({ errors: [err] });
       });
   };

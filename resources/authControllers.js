@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const User = require("../resources/User/user.model").UserModel;
-const UserRoles = require("../resources/User/user.model").UserRoles;
-const hash = require("./hash");
+const User = require("./User/user.model").UserModel;
+const UserRoles = require("./User/user.model").UserRoles;
+const hash = require("../util/hash");
 
 const salt = 8;
 
@@ -124,7 +124,11 @@ const login = async (req, res) => {
       statusCode: 200,
       cookie: generateToken(user),
       body: {
-        doc: user,
+        doc: {
+          _id: user._id,
+          email: user.email,
+          roles: user.roles,
+        },
       },
     };
   } catch (err) {
