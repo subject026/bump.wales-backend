@@ -37,7 +37,6 @@ function SetupMiddleware(app) {
     ? process.env.DEV_FRONTEND_URL
     : process.env.PROD_FRONTEND_URL;
 
-  console.log("\n\n\n\n\n\n", origin, "\n\n\n\n\n");
   app.use(
     cors({
       origin,

@@ -11,3 +11,18 @@ const feedKeys = [
   "language",
   "lastBuildDate",
 ];
+
+const feedItemsKeys = [
+  "creator",
+  "title",
+  "link",
+  "pubDate",
+  "content:encoded",
+  "dc:creator",
+  "comments",
+  "content",
+  "contentSnippet",
+  "guid",
+  "categories",
+  "isoDate",
+];

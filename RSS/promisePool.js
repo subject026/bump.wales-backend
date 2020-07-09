@@ -9,7 +9,8 @@ const promisePool = (arr, makePromise) => {
       // Scroll down for an example.
 
       while (arr.length) {
-        return makePromise(arr.pop());
+        let data = arr.pop();
+        return makePromise(data);
       }
     };
 
@@ -22,7 +23,7 @@ const promisePool = (arr, makePromise) => {
     let data = [];
 
     pool.addEventListener("fulfilled", function (event) {
-      console.log("boom! promised fulfilled");
+      // console.log("boom! promised fulfilled");
       data.push(event.data.result);
     });
 
@@ -42,10 +43,9 @@ const promisePool = (arr, makePromise) => {
     //   console.log("Some promise rejected: " + error);
     //   reject();
     // });
-    pool.start()
-      .then(() => {
-        resolve(data);
-      });
+    pool.start().then(() => {
+      resolve(data);
+    });
   });
 };
 

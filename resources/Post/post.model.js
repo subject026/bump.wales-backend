@@ -4,7 +4,12 @@ const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: false,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: false,
       trim: true,
     },
     url: {
@@ -14,21 +19,17 @@ const postSchema = new mongoose.Schema(
     },
     pubDate: {
       type: String,
-      required: true,
+      required: false,
     },
     publisher_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "publisher",
       // required: true
     },
-    publisherName: {
-      type: String,
-      // required: true,
-    },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 module.exports = {

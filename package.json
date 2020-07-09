@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "MODE=development nodemon api.bump.wales.js",
     "prod": "MODE=production node api.bump.wales.js",
-    "rss-dev": "MODE=development nodemon RSS/index.js"
+    "rss-dev": "MODE=development node RSS/index.js",
+    "rss-clear-feeds": "MODE=development node RSS/clearLastFeeds.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
