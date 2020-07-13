@@ -3,7 +3,7 @@ const generateControllers = (Model) => {
     async create(req) {
       try {
         console.log(Model);
-        const doc = await Model.create(req.body);
+        const doc = await Model.create(req.body).save();
         return {
           statusCode: 200,
           body: doc,
@@ -50,7 +50,7 @@ const generateControllers = (Model) => {
     // !!!
     // },
     async delete(req) {
-      if (!req.body._id) {
+      if (!req.body.id) {
         return {
           statusCode: 500,
           body: {
@@ -59,7 +59,7 @@ const generateControllers = (Model) => {
         };
       }
       try {
-        const result = await Model.findOneAndRemove({ _id: req.body._id });
+        const result = await Model.delete({ id: req.body.id });
 
         return {
           statusCode: result ? 200 : 500,

@@ -1,22 +1,9 @@
-const mongoose = require("mongoose");
+const generateAdaptors = require("../generateAdaptors");
+const { RequiredParameterError } = require("../../util/errors");
 
-const feedSchema = new mongoose.Schema(
-  {
-    data: {
-      type: Object,
-      required: true,
-    },
-    publisher_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "publisher",
-      // required: true
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
-
-module.exports = {
-  FeedModel: mongoose.model("feed", feedSchema),
+const validateNewFeed = (data) => {
+  if (!data.data) throw new RequiredParameterError("feed data");
+  if (!data.publisher_id) throw new RequiredParameterError("publisher_id");
 };
+
+module.exports = { Feed: generateAdaptors("feeds", validateNewFeed) };

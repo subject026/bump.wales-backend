@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { link } = require("fs");
 /*
 
 *bold \*text*
@@ -17,22 +18,35 @@ pre-formatted fixed-width code block written in the Python programming language
 ```
 
 */
-const sendMessage = async (message) => {
-  try {
-    var str = `
-        *bump.wales - new links*
-          
-        *State Of Wales*
-        jdrf ghsdjkgh dljkgh djkfghs djklhsldjkfhg skjdfhg sljhgfl sjghl j
-        jdrf ghsdjkgh dljkgh djkfghs djklhsldjkfhg skjdfhg sljhgfl sjghl j
-        jdrf ghsdjkgh dljkgh djkfghs djklhsldjkfhg skjdfhg sljhgfl sjghl j
 
-        *Oggy Bloggy Ogwr*
-        jdrf ghsdjkgh dljkgh djkfghs djklhsldjkfhg skjdfhg sljhgfl sjghl j
-        jdrf ghsdjkgh dljkgh djkfghs djklhsldjkfhg skjdfhg sljhgfl sjghl j`;
+const buildMessage = (publishers) => {
+  let str = `*bump.wales - new links ${Date.now().toLocaleString()}*`;
+  Object.keys(publishers).forEach((pub) => {
+    str = str + `\n\n*${pub}*\n`;
+    publishers[pub].forEach((link) => {
+      str = str + `${link}\n`;
+    });
+  });
+  return str;
+};
+
+const sortLinks = (links) => {
+  return links.reduce((acc, link) => {
+    if (!acc.hasOwnProperty(link.publisher)) acc[link.publisher] = [];
+    acc[link.publisher].push(link.link);
+
+    return acc;
+  }, {});
+};
+
+const sendMessage = async (report) => {
+  const publishers = sortLinks(report.newLinks);
+
+  try {
+    var str = buildMessage(publishers);
 
     var telegram_url = encodeURI(
-      `https://api.telegram.org/bot${process.env.TELEGRAM_API_KEY}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${str}&parse_mode=Markdown`
+      `https://api.telegram.org/bot${process.env.TELEGRAM_API_KEY}/sendMessage?chat_id=${process.env.CHAT_ID}&text=${str}&parse_mode=Markdown`,
     );
     const { data } = await axios.get(telegram_url);
     if (data.ok) {
@@ -43,4 +57,4 @@ const sendMessage = async (message) => {
   }
 };
 
-module.exports = sendMessage;
+module.exports = { buildMessage, sendMessage, sortLinks };

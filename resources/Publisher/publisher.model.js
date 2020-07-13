@@ -1,33 +1,12 @@
-const mongoose = require("mongoose");
+const generateAdaptors = require('../generateAdaptors');
+const { RequiredParameterError } = require('../../util/errors');
 
-const publisherSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
-    homepage: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    rss: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    lastFeed: {
-      type: [{ type: String }],
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
+const validateNewPublisher = (data) => {
+  if (!data.name) throw new RequiredParameterError('name');
+  if (!data.homepage) throw new RequiredParameterError('homepage');
+  if (!data.rss) throw new RequiredParameterError('rss');
+};
 
 module.exports = {
-  PublisherModel: mongoose.model("publisher", publisherSchema),
+  Publisher: generateAdaptors('publishers', validateNewPublisher),
 };

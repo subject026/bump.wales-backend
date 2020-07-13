@@ -7,7 +7,10 @@
     "dev": "MODE=development nodemon api.bump.wales.js",
     "prod": "MODE=production node api.bump.wales.js",
     "rss-dev": "MODE=development node RSS/index.js",
-    "rss-clear-feeds": "MODE=development node RSS/clearLastFeeds.js"
+    "rss-clear-feeds": "MODE=development node RSS/clearLastFeeds.js",
+    "test": "MODE=test jest --watch --runInBand --detectOpenHandles",
+    "migrate": "node-pg-migrate",
+    "migrate-test": "DATABASE_URL=postgres://postgres@localhost/bump-wales-test node-pg-migrate"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -20,10 +23,18 @@
     "fs": "^0.0.1-security",
     "jest": "^26.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.21",
     "morgan": "^1.10.0",
+    "node-pg-migrate": "^5.2.0",
     "nodemon": "^2.0.4",
+    "pg": "^8.2.2",
+    "pg-monitor": "^1.4.1",
+    "pg-promise": "^10.5.8",
     "rss-parser": "^3.8.0",
     "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
   }
 }

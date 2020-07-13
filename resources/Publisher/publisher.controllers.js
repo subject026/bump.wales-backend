@@ -1,6 +1,6 @@
-const Model = require("./publisher.model").PublisherModel;
-const generateControllers = require("../generateControllers");
+const { Publisher } = require('./publisher.model');
+const generateControllers = require('../generateControllers');
 
-const PublisherControllers = generateControllers(Model);
+const PublisherControllers = generateControllers(Publisher);
 
 module.exports = PublisherControllers;

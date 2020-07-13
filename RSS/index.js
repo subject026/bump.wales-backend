@@ -1,17 +1,17 @@
 require("dotenv").config();
 
-const DB = require("../DB");
-const Publisher = require("../resources/Publisher/publisher.model")
-  .PublisherModel;
+const db = require("../DB");
+const { Publisher } = require("../resources/Publisher/publisher.model");
 
 // const attachFeeds = require("./attachFeeds");
 // const generateNewPostData = require("./generateNewPostData");
 // const createNewPosts = require("./createNewPosts");
-const sendMessage = require("./sendMessage");
+const { sendMessage } = require("./sendMessage");
 const processPublisher = require("./processPublisher");
+const { getReport } = require("./report");
 
 (async () => {
-  const DBConnection = DB();
+  // const DBConnection = DB();
 
   console.log("getting publishers...");
   const publishers = await Publisher.find();
@@ -20,37 +20,17 @@ const processPublisher = require("./processPublisher");
   //
   // parse and attach feeds
 
-  const report = [];
+  // const report = [];
 
   for (let i = 0; i < publishers.length; i++) {
     const publisher = publishers[i];
-    const { newFeedItems, newPosts } = await processPublisher(publisher);
-    report.push({
-      publisher: publisher.name,
-      newFeedItems,
-      newPosts,
-    });
+    await processPublisher(publisher);
   }
-  console.log(report);
   // const publishersWithFeeds = await attachFeeds(publishers);
+  const report = getReport();
 
-  // const { newPostData, newPostDataErrors } = await generateNewPostData(
-  //   publishersWithFeeds
-  // );
-
-  // console.log("newPostData.length: ", newPostData.length);
-  // console.log(
-  //   "\n newPostDataErrors: ",
-  //   newPostDataErrors && newPostDataErrors.length ? newPostDataErrors : "none."
-  // );
-
-  // // create posts
-  // console.log("creating new posts...");
-  // const { res, errors } = await createNewPosts(newPostData);
-  // console.log("done...  posts errors? ", errors);
-
-  // await sendMessage("woo");
-  // DBConnection.close();
-  // process.exit();
-  // return;
+  //
+  console.log("report.newLinks.length", report);
+  console.log("report.newLinks", report.newLinks);
+  if (report.newLinks.length) sendMessage(report);
 })();
