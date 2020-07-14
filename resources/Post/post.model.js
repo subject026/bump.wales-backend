@@ -6,4 +6,4 @@ const validateNewPost = (data) => {
   if (!data.publisher_id) throw new RequiredParameterError("publisher_id");
 };
 
-module.exports = generateAdaptors("posts", validateNewPost);
+module.exports = { Post: generateAdaptors("posts", validateNewPost) };

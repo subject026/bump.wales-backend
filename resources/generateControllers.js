@@ -19,21 +19,22 @@ const generateControllers = (Model) => {
     },
     async find(req) {
       try {
-        if (Object.keys(req.body).length < 1) {
-          // find all
-          const docs = await Model.find();
-          console.log(docs);
-          return {
-            statusCode: 200,
-            body: docs,
-          };
-        }
-        // find based on query
-        console.log("req.body      \n\n\n", req.body);
+        // if (Object.keys(req.body).length < 1) {
+        // find all
+        console.log("here it is");
+        const docs = await Model.find(req.body);
+        console.log(docs.length);
         return {
           statusCode: 200,
-          body: "bloop",
+          body: docs,
         };
+        // }
+        // find based on query
+        // console.log("req.body      \n\n\n", req.body);
+        // return {
+        //   statusCode: 200,
+        //   body: "bloop",
+        // };
         // Object.keys(req.body);
       } catch (err) {
         console.log(err);

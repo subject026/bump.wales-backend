@@ -28,27 +28,38 @@ const generateAdaptors = (modelName, validate) => ({
   },
   async find(filter = false) {
     try {
-      if (!filter) {
-        const res = await db.many(`select * from ${modelName};`);
-        return res;
+      let res;
+      // if the query is for posts use a join
+      if (modelName === "posts") {
+        res = await db.many(`
+          SELECT posts.id, title, url, pub_date, name, pub_date, homepage FROM posts
+          INNER JOIN publishers on posts.publisher_id = publishers.id
+        `);
+        console.log(res);
+      } else {
+        if (!filter) {
+          res = await db.many(`select * from ${modelName};`);
+        } else {
+          // if we have filter
+          const filterKeys = Object.keys(filter);
+          if (filterKeys.length > 1) {
+            throw new Error(
+              "Model.find() - filter must only be one key/value pair",
+            );
+          }
+          const field = filterKeys[0];
+          const value = filter[field];
+          res = await db.any(
+            `
+              SELECT * FROM ${modelName}
+              WHERE ${field} = '${value}';`,
+            { field, value },
+          );
+        }
       }
-      // if we have filter
-      const filterKeys = Object.keys(filter);
-      if (filterKeys.length > 1) {
-        throw new Error(
-          "Model.find() - filter must only be one key/value pair",
-        );
-      }
-      const field = filterKeys[0];
-      const value = filter[field];
-      const res = await db.any(
-        `
-          SELECT * FROM ${modelName}
-            WHERE ${field} = '${value}';`,
-        { field, value },
-      );
       return res;
     } catch (err) {
+      console.log("\n\n\nerr: ", err);
       return err;
     }
   },

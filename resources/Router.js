@@ -2,6 +2,7 @@ const Router = require("express").Router();
 
 const AuthControllers = require("./authControllers");
 const UserControllers = require("./User/user.controllers");
+const PostControllers = require("./Post/post.controllers");
 const PublisherControllers = require(
   "./Publisher/publisher.controllers",
 );
@@ -93,11 +94,11 @@ Router.route("/publishers")
   .delete(protect(["ADMIN"]), expressCallback(PublisherControllers.delete))
   .all(expressCallback(badRequest));
 
-// Router.route("/publisher")
-//   .post(protect, expressCallback(UserFilmMetaControllers.createOne))
-//   .get(protect, expressCallback(UserFilmMetaControllers.getMany))
-//   .put(protect, expressCallback(UserFilmMetaControllers.updateOne))
-//   .delete(protect, expressCallback(UserFilmMetaControllers.deleteOne))
-//   .all(expressCallback(badRequest));
+Router.route("/posts")
+  .post(expressCallback(PostControllers.create))
+  .get(expressCallback(PostControllers.find))
+  .put(expressCallback(PostControllers.update))
+  .delete(expressCallback(PostControllers.delete))
+  .all(expressCallback(badRequest));
 
 module.exports = Router;
