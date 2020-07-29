@@ -1,24 +1,27 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const config = {};
 
 config.APP_SECRET = process.env.APP_SECRET;
 
 switch (process.env.MODE) {
-  case 'development':
+  case "development":
     config.host = process.env.PGHOST;
     config.database = process.env.PGDATABASE;
     config.user = process.env.PGUSER;
     config.password = process.env.PGPASSWORD;
     break;
-  case 'test':
+  case "test":
     config.host = process.env.PGHOST;
     config.database = process.env.PGDATABASE_TEST;
     config.user = process.env.PGUSER;
     config.password = process.env.PGPASSWORD;
     break;
   default:
-    config.DB_URL = process.env.PROD_DB_URL;
+    config.host = process.env.PGHOST;
+    config.database = process.env.PGDATABASE;
+    config.user = process.env.PGUSER;
+    config.password = process.env.PGPASSWORD;
 }
 
 module.exports = config;
