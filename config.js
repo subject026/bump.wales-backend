@@ -24,4 +24,6 @@ switch (process.env.MODE) {
     config.password = process.env.PGPASSWORD;
 }
 
+console.log(config);
+
 module.exports = config;
