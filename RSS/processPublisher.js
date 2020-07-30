@@ -59,7 +59,7 @@ const processPublisher = async (publisher) => {
     const newFeedDoc = await Feed.create({
       data: JSON.stringify({
         ...newFeed,
-        items: newFeed.items?.map((i) => i.link),
+        items: newFeed.items.map((i) => i.link),
       }),
       publisher_id: publisher.id,
     }).save();
