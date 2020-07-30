@@ -124,6 +124,7 @@ const login = async (req, res) => {
 
     user = user[0];
 
+    console.log(req.body.password, user.password, "\n\n\n\n\n");
     const same = await bcrypt.compare(req.body.password, user.password);
     if (!same) {
       return {
