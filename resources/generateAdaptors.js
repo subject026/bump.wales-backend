@@ -3,6 +3,7 @@ const pgp = require("pg-promise")({ capSQL: true });
 const db = require("../DB");
 
 const generateAdaptors = (modelName, validate) => ({
+  modelName,
   create(data) {
     validate(data);
     return Object.freeze({
