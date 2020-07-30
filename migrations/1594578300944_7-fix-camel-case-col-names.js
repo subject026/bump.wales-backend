@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-require("dotenv").config();
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
